@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>user click Test</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="/css/user-gesture.css">
+    </head>
+
+    <body>
+       <div id="user-gesture-oberlay">
+          <div class="center">
+        <!-- our buttond to tell others -->
+        <button id="float_box1" style="background-color:rgb(0, 255, 0); color:rgb(255, 255, 255); transform: translate(50px,60px);">.</button>
+        <button id="float_box2" style="background-color:rgb(0, 255, 0); color:rgb(255, 255, 255); transform: translate(-20px,30px);">.</button>
+        <button id="float_box3" style="background-color:rgb(0, 255, 0); color:rgb(255, 255, 255); transform: translate(-90px,0px);">.</button>
+        <button id="float_box4" style="background-color:rgb(0, 255, 0); color:rgb(255, 255, 255); transform: translate(60px,60px);">.</button>
+        <button id="float_box5" style="background-color:rgb(0, 255, 0); color:rgb(255, 255, 255); transform: translate(-10px,30px);"></button>
+        <button id="float_box7" style="background-color:rgb(0, 255, 0); color:rgb(255, 255, 255); transform: translate(70px,60px);">.</button>
+        <button id="float_box8" style="background-color:rgb(0, 255, 0); color:rgb(255, 255, 255); transform: translate(0px,30px);">.</button>
+        <button id="float_box6" style="background-color:rgb(0, 255, 0); color:rgb(255, 255, 255); transform: translate(-80px,0px);">.</button>
+        <button id="float_box9" style="background-color:rgb(0, 255, 0); color:rgb(255, 255, 255); transform: translate(-70px,0px);">.</button>
+      </div>
+   </div>
+        <!-- this is magic code created when the node server runs -->
+        <!-- //VERY HANDY! https://socket.io/docs/v3/emit-cheatsheet/  -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            let socket = io();
+
+            socket.on('connect', (userData) => {
+                console.log('I exist!');
+
+             //send the color change to other “players”
+             let b1 = document.querySelector('#float_box1')
+             b1.addEventListener('click',function(){
+             b1.style.backgroundColor='#337ab7';
+            socket.emit('blue', {boxid:'float_box1'});//If The blue player
+            });
+
+        //send the color change to other “players”
+        let b2 = document.querySelector('#float_box2')
+             b2.addEventListener('click',function(){
+             b2.style.backgroundColor='#337ab7';
+            socket.emit('blue', {boxid:'float_box2'});//If The blue player
+            });
+            
+           //send the color change to other “players”
+        let b3 = document.querySelector('#float_box3')
+             b3.addEventListener('click',function(){
+             b3.style.backgroundColor='#337ab7';
+            socket.emit('blue', {boxid:'float_box3'});//If The blue player
+            });
+            
+        //send the color change to other “players”
+        let b4 = document.querySelector('#float_box4')
+             b4.addEventListener('click',function(){
+             b4.style.backgroundColor='#337ab7';
+            socket.emit('blue', {boxid:'float_box4'});//If The blue player
+            });
+            
+          //send the color change to other “players”
+          let b5 = document.querySelector('#float_box5')
+             b5.addEventListener('click',function(){
+             b5.style.backgroundColor='#337ab7';
+            socket.emit('blue', {boxid:'float_box5'});//If The blue player
+            });
+            
+         //send the color change to other “players”
+         let b6 = document.querySelector('#float_box6')
+             b6.addEventListener('click',function(){
+             b6.style.backgroundColor='#337ab7';
+            socket.emit('blue', {boxid:'float_box6'});//If The blue player
+            });
+            
+         //send the color change to other “players”
+         let b7 = document.querySelector('#float_box7')
+             b7.addEventListener('click',function(){
+             b7.style.backgroundColor='#337ab7';
+            socket.emit('blue', {boxid:'float_box7'});//If The blue player
+            });
+            
+          //send the color change to other “players”
+          let b8 = document.querySelector('#float_box8')
+             b8.addEventListener('click',function(){
+             b8.style.backgroundColor='#337ab7';
+            socket.emit('blue', {boxid:'float_box8'});//If The blue player
+            });
+            
+          //send the color change to other “players”
+          let b9 = document.querySelector('#float_box9')
+             b9.addEventListener('click',function(){
+             b9.style.backgroundColor='#337ab7';
+            socket.emit('blue', {boxid:'float_box9'});//If The blue player
+            });
+            
+       //receive any color changes from other “players”
+       socket.on('color_change', (data) => {
+        let colorStr = 'rgb(' + data.r + ',' + data.g + ',' + data.b + ')';
+        console.log(data.boxid);
+        console.log('color_change:' + colorStr);    
+        document.querySelector('#' + data.boxid).style.backgroundColor= colorStr;
+          });
+      });
+
+        </script>
+    </body>
+</html>

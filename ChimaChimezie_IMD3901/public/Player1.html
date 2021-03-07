@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>user click Test</title>
+        <meta charset="utf-8" />
+        <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    </head>
+
+    <body>
+        <!-- our buttond to tell others -->
+        <!-- <button id="red" style="background-color:rgb(255, 0, 0); color:rgb(255, 255, 255)">RED</button>
+        <button id="blue" style="background-color:rgb(0, 0, 255); color:rgb(255, 255, 255)">BLUE</button> -->
+
+        <a-scene background="color:rgb(0, 0, 0);">
+            <a-entity camera wasd-controls look-controls position="5 1.6 5">
+                <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
+              </a-entity>
+               
+               
+            </a-entity>
+
+            <a-entity class="ground"  geometry="primitive:plane; width:14; height:14;" material="color:grey;" position="0 0.01 0" rotation="-90 0 0"></a-entity>
+             <!--Box-->
+
+            <a-entity id="float_box1" class="button interactive"  position="5 1 0" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" material="color:rgb(0, 255, 0)"                       
+                            animation__click="property:material.color; type:color; to:rgb(255, 0, 0); startEvents:click; dur:200s" shadow></a-entity>
+            </a-entity>
+
+            <a-entity id="float_box2" class="button interactive"  position="5 2 0" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" material="color:rgb(0, 255, 0)"                       
+                            animation__click="property:material.color; type:color; to:rgb(255, 0, 0); startEvents:click; dur:200s" shadow></a-entity>
+            </a-entity>
+
+            <a-entity id="float_box3" class="button interactive"  position="5 3 0" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" material="color:rgb(0, 255, 0)"                       
+                            animation__click="property:material.color; type:color; to:rgb(255, 0, 0); startEvents:click; dur:200s" shadow></a-entity>
+            </a-entity>
+
+            <a-entity id="float_box4" class="button interactive"  position="6 1 0" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" material="color:rgb(0, 255, 0)"                       
+                            animation__click="property:material.color; type:color; to:rgb(255, 0, 0); startEvents:click; dur:200s" shadow></a-entity>
+            </a-entity>
+
+            <a-entity id="float_box5" class="button interactive"  position="6 2 0" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" material="color:rgb(0, 255, 0)"                       
+                            animation__click="property:material.color; type:color; to:rgb(255, 0, 0); startEvents:click; dur:200s" shadow></a-entity>
+            </a-entity>
+
+            <a-entity id="float_box6" class="button interactive"  position="6 3 0" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" material="color:rgb(0, 255, 0)"                       
+                            animation__click="property:material.color; type:color; to:rgb(255, 0, 0); startEvents:click; dur:200s" shadow></a-entity>
+            </a-entity>
+         
+            <a-entity id="float_box7" class="button interactive"  position="7 1 0" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" material="color:rgb(0, 255, 0)"                       
+                            animation__click="property:material.color; type:color; to:rgb(255, 0, 0); startEvents:click; dur:200s" shadow></a-entity>
+            </a-entity>
+
+            <a-entity id="float_box8" class="button interactive"  position="7 2 0" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" material="color:rgb(0, 255, 0)"                       
+                            animation__click="property:material.color; type:color; to:rgb(255, 0, 0); startEvents:click; dur:200s" shadow></a-entity>
+            </a-entity>
+
+            <a-entity id="float_box9" class="button interactive"  position="7 3 0" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" material="color:rgb(0, 255, 0)"                       
+                            animation__click="property:material.color; type:color; to:rgb(255, 0, 0); startEvents:click; dur:200s" shadow></a-entity>
+            </a-entity>
+
+            <a-entity id="Instruction_plane" position="2 1 2" rotation="0 90 0" scale="1 1 1">
+               <a-entity geometry="primitive:plane; width:1.5; height:1.0;" material="src:#methane_img" position="0.65 0 0.01" shadow="cast:false; receive:true;"></a-entity>
+               <a-entity geometry="primitive:box; width:3.0; height:1.2; depth:0.2;" material="color:white;" position="0 0 -0.11" shadow="cast:true; receive:true;"></a-entity>
+               <a-entity text="value:Red & BLUE; 
+                               color:black; font:roboto; width:1.3; anchor:left; baseline:top; wrapCount:12;" position="-1.4 0.5 0.01" ></a-entity>
+               <a-entity text="value:This is a game similar to X & O.; 
+                               color:black; font:roboto; width:1.25; anchor:left; baseline:top; wrapCount:18;" position="-1.4 0.25 0.01" ></a-entity>
+             </a-entity>
+        <!-- this is magic code created when the node server runs -->
+        <!-- putting at teh bottom of body to let body load first before we try to query for elements -->
+        <!-- //VERY HANDY! https://socket.io/docs/v3/emit-cheatsheet/  -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            const socket = io();  
+            
+    socket.on('connect', (userData) => {
+      console.log('red event received');
+    
+        //send the color change to other “players”
+        document.querySelector('#float_box1').addEventListener('click', function(){
+           socket.emit('red', {boxid:'float_box1'});//If The “Red” player
+        });
+          //send the color change to other “players”
+          document.querySelector('#float_box2').addEventListener('click', function(){
+           socket.emit('red', {boxid:'float_box2'});
+        });
+
+          //send the color change to other “players”
+          document.querySelector('#float_box3').addEventListener('click', function(){
+           socket.emit('red', {boxid:'float_box3'});
+        });
+        //send the color change to other “players”
+        document.querySelector('#float_box4').addEventListener('click', function(){
+           socket.emit('red', {boxid:'float_box4'});
+        });
+        //send the color change to other “players”
+        document.querySelector('#float_box5').addEventListener('click', function(){
+           socket.emit('red', {boxid:'float_box5'});
+        });
+        //send the color change to other “players”
+        document.querySelector('#float_box6').addEventListener('click', function(){
+           socket.emit('red', {boxid:'float_box6'});
+        });
+        //send the color change to other “players”
+        document.querySelector('#float_box7').addEventListener('click', function(){
+           socket.emit('red', {boxid:'float_box7'});
+        });
+        //send the color change to other “players”
+        document.querySelector('#float_box8').addEventListener('click', function(){
+           socket.emit('red', {boxid:'float_box8'});
+        });
+        //send the color change to other “players”
+        document.querySelector('#float_box9').addEventListener('click', function(){
+           socket.emit('red', {boxid:'float_box9'});
+        });
+       //receive any color changes from other “players”
+       socket.on('color_change', (data) => {
+        let colorStr = 'rgb(' + data.r + ',' + data.g + ',' + data.b + ')';
+        console.log(data.boxid);
+        console.log('color_change:' + colorStr);    
+         document.querySelector('#'+data.boxid).setAttribute('material', {color:colorStr});
+        }); 
+    });
+        </script>
+    </body>
+</html>
